@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- begin #sidebar -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+
+<aside th:fragment="menu" class="left-sidebar ">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+
+        <!-- End User profile text-->
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li>
+                    <a class="waves-effect waves-dark" data-th-href="@{/}" aria-expanded="false"><i
+                            class="mdi mdi-home text-success"></i>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="waves-effect waves-dark" data-th-href="@{/orders}"
+                       aria-expanded="false"><i
+                            class="mdi mdi-bulletin-board text-success"></i>
+                        <span class="hide-menu">Orders</span>
+                    </a>
+                </li>
+
+                <li sec:authorize="hasRole('ROLE_RIDERS')">
+                    <a class="waves-effect waves-dark" data-th-href="@{/riders}"
+                       aria-expanded="false"><i
+                            class="mdi mdi-bulletin-board text-success"></i>
+                        <span class="hide-menu">Drivers</span>
+                    </a>
+                </li>
+
+                <li sec:authorize="hasRole('ROLE_USERS')">
+                    <a class="waves-effect waves-dark" data-th-href="@{/vehicles}"
+                       aria-expanded="false"><i
+                            class="mdi mdi-car text-success"></i>
+                        <span class="hide-menu">Vehicles</span>
+                    </a>
+                </li>
+
+
+                <li sec:authorize="hasRole('ROLE_USERS')">
+                    <a
+                            class="has-arrow waves-effect waves-dark" href="#"
+                            aria-expanded="false"><i
+                            class="mdi mdi-account-multiple text-success"></i><span
+                            class="hide-menu">User Management</span></a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li class="text-success" sec:authorize="hasRole('ROLE_USERS')"><a
+                                data-th-href="@{/users}">Users</a>
+                        </li>
+                        <li class="text-success" sec:authorize="hasRole('ROLE_USER_GROUPS')"><a
+                                data-th-href="@{/users}">User groups</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            </ul>
+        </nav>
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+
+
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- end #sidebar -->
+
+</html>

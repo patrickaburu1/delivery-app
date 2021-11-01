@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<!-- Page wrapper  -->
+<head>
+    <link rel="stylesheet" data-th-href="@{/plugins/datatables/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/formvalidation/formValidation.css}"/>
+
+</head>
+
+<div layout:fragment="content">
+    <!-- Bread crumb and right sidebar toggle -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Orders</h4>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0)">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Orders</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!--<div class="wrapper">-->
+    <div class="container-fluid">
+
+
+        <div class="card">
+            <div class="">
+
+                <div class="nav-tab-horizontal">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#all" data-toggle="tab" aria-expanded="true">All</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pending" data-toggle="tab">Pending</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#completed" data-toggle="tab">Completed</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="all" aria-expanded="true">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <!-- <div class="mr-2">
+                                                 <div class="filters1">
+                                                     <select class="form-control" name="a.national_id_verified">
+                                                         <option value="">Order Status</option>
+                                                         <option value="1" >Pending</option>
+                                                         <option value="0" >In-Transit</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                             <div class="mr-2">
+                                                 <div class="filters1">
+                                                     <button class="btn btn-default date-range"
+                                                             style="background:#fff;border: 1px solid #ccc;"
+                                                             th:title="#{reports.dateRange}">
+                                                         <i class="fa fa-calendar"></i>
+                                                         <span >Date Range</span>
+                                                     </button>
+                                                 </div>
+                                             </div>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive p-3">
+                                <table id="all_table"
+                                       class="table table-hover table-sm table-striped table-bordered tab-active"
+                                       data-plugin="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Order No</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th>Order Amount</th>
+                                        <th>Customer Contact</th>
+                                        <th>Driver Assigned</th>
+                                        <th>Ordered On</th>
+                                        <th>Delivered On</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pending" role="tabpanel" aria-expanded="false">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive p-3">
+                                <table id="table_pending"
+                                       class="table table-hover table-sm table-striped table-bordered table-inactive"
+                                       data-plugin="dataTable" width="100%">
+                                    <thead>
+
+                                    <tr>
+                                        <th>Order No</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th>Order Amount</th>
+                                        <th>Customer Contact</th>
+                                        <th>Driver Assigned</th>
+                                        <th>Ordered On</th>
+                                        <th>Action</th>
+                                    </tr>
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="completed" role="tabpanel" aria-expanded="false">
+                            <div class="card parent-card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <!-- <div class="row">
+                                                 <div class="mr-2">
+                                                     <div class="filters2">
+                                                         <button class="btn btn-default date-range"
+                                                                 style="background:#fff;border: 1px solid #ccc;"
+                                                                 th:title="#{reports.dateRange}">
+                                                             <i class="fa fa-calendar"></i>
+                                                             <span >Date Range</span>
+                                                         </button>
+                                                     </div>
+                                                 </div>
+                                             </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive p-3">
+                                    <table id="table_completed"
+                                           class="table table-hover table-sm table-striped table-bordered stats_table"
+                                           data-plugin="dataTable" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Order No</th>
+                                            <th>Company</th>
+                                            <th>Status</th>
+                                            <th>Order Amount</th>
+                                            <th>Customer Contact</th>
+                                            <th>Driver Assigned</th>
+                                            <th>Ordered On</th>
+                                            <th>Delivered On</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card child-card d-none">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div>
+                                            <button type="button"
+                                                    class="btn btn-info <" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="true">
+                                                Return
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive p-3">
+                                    <table class="table table-hover table-sm table-striped table-bordered user-trans"
+                                           data-plugin="dataTable" width="100%" id="user-trans">
+                                        <thead>
+                                        <tr>
+                                        <tr>
+                                            <th>Order No</th>
+                                            <th>Total</th>
+                                            <th>Customer Contact</th>
+                                            <th>Status</th>
+                                            <th>Driver Assigned</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--assign order modal-->
+        <div class="modal fade" id="assignDriverModal" tabindex="-1" role="dialog" aria-labelledby="assignDriverModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Assign Order</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="frmAssignOrder">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="drivers" class="control-label">Available Riders:</label>
+                                <select name="driver" id="drivers" class="form-control">
+
+                                </select>
+                            </div>
+                            <input name="id" id="entityID" hidden="hidden">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="assignOrder" name="assign" class="btn btn-success">Assign</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of  modal-->
+
+
+        <!-- delivery loc modal -->
+        <div id="locationModal" class="modal fade" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map" style="clear:both; height:400px;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal-->
+
+
+        <!-- order details modal -->
+        <div id="orderDetailsModal" class="modal fade" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Order Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5">Order No : </span><span id="orderNo"></span>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5 ">Order Status : </span><span id="orderState"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5">Cusomer Name : </span><span id="customerName"></span>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5 ">Customer Contact : </span><span id="customerPhone"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5 ">Delivery Date : </span><span id="deliveryDate"></span>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="h5">Delivery Note : </span><span id="deliveryNote"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="card">
+                            <div class="card-header">Order Items</div>
+                            <div class="card-body">
+                                <div class="row table-responsive">
+                                    <table id="orderProducts" style="width: 100%" class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Vendor</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" h4">Delivery Address</div>
+                        <div id="deliveryMap" style="clear:both; height:400px;">Address</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal-->
+
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}"></script>
+
+    <!--Form Validation -->
+    <script th:src="@{/plugins/formvalidation/formValidation.min.js}"></script>
+    <script th:src="@{/plugins/formvalidation/framework/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/app/utils.js}"></script>
+    <script th:src="@{/js/app/app-utils.js}"></script>
+    <script th:src="@{/js/app/orders.js}"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcSrH6owJs3s1mgshqQwN7W0D0ji-GzeE&libraries=drawing&v=weekly" defer></script>
+</th:block>
+
+
+</html>

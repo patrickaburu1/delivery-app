@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<!-- Page wrapper  -->
+<head>
+    <link rel="stylesheet" data-th-href="@{/plugins/datatables/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/formvalidation/formValidation.css}"/>
+
+</head>
+
+<div layout:fragment="content">
+    <!-- Bread crumb and right sidebar toggle -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Vehicles</h4>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0)">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Vehicles</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!--<div class="wrapper">-->
+    <div class="container-fluid">
+
+        <div class="card">
+            <div class="col-md-12 text-right">
+                <div class="card-header">
+                    <button type="button" data-toggle="modal" data-target="#newVehicleModal" class="btn btn-custome waves-effect waves-light">Create Vehicle</button>
+                </div>
+            </div>
+            <div class="table-responsive p-3">
+                <table id="vehicles"
+                       class="table table-hover table-sm table-striped table-bordered tab-active"
+                       data-plugin="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Status</th>
+                        <th>Driver Assigned</th>
+                        <th>Date Created</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <!--new vehicle  modal-->
+        <div class="modal fade" id="newVehicleModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Vehicle Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="frmNewVehicle">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="vehicleType"  class="form-control-label">Vehicle Type </label>
+                                <select id="vehicleType" name="vehicleType" class="form-control">
+                                    <option value="FRR">FRR</option>
+                                    <option value="TRUCK">TRUCK</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regNo" class="control-label">Reg No</label>
+                                <input name="regNo" id="regNo" class="form-control" placeholder="KCS 121G" minlength="7" maxlength="10">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vehicleCapacity" class="control-label">Vehicle Capacity (In tonnes)</label>
+                                <input type="number" name="vehicleCapacity" id="vehicleCapacity" class="form-control" placeholder="2.5" minlength="1" maxlength="2">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of  modal-->
+
+        <!--edit modal-->
+        <div id="editModal" class="modal fade in"
+             tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit vehicle</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                    </div>
+                    <form id="editVehicleFrm">
+                        <div class="modal-body">
+                            <input type="text" name="id" id="id" class="form-control" hidden>
+                            <div class="form-group">
+                                <label for="vehicleType1" class="form-control-label">Vehicle Type </label>
+                                <select id="vehicleType1" name="vehicleType" class="form-control">
+                                    <option value="FRR">FRR</option>
+                                    <option value="TRUCK">TRUCK</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vehicleCapacity1" class="control-label">Vehicle Capacity (In tonnes)</label>
+                                <input type="number" name="vehicleCapacity" id="vehicleCapacity1" class="form-control" placeholder="2.5" minlength="1" maxlength="2">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regNo1" class=" form-control-label">Reg No</label>
+                                <input type="text" name="regNo" id="regNo1" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="assignedTo" class=" form-control-label">Assigned To</label>
+                                <input type="text" name="assignedTo" id="assignedTo" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="status" class=" form-control-label">Status</label>
+                                <input type="text" name="status" id="status" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastModified" class=" form-control-label">Last Modified</label>
+                                <input type="text" name="lastModified" id="lastModified" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success waves-effect">Update
+                            </button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of edit modal-->
+
+
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}"></script>
+
+    <!--Form Validation -->
+    <script th:src="@{/plugins/formvalidation/formValidation.min.js}"></script>
+    <script th:src="@{/plugins/formvalidation/framework/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/app/utils.js}"></script>
+    <script th:src="@{/js/app/vehicles.js}"></script>
+</th:block>
+
+
+</html>

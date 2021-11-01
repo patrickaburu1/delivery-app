@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<!-- Page wrapper  -->
+<head>
+    <link rel="stylesheet" data-th-href="@{/plugins/datatables/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/formvalidation/formValidation.css}"/>
+
+</head>
+
+<div layout:fragment="content">
+
+    <!-- Bread crumb and right sidebar toggle -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Users</h4>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0)">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Users</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!--<div class="wrapper">-->
+
+    <div class="container-fluid">
+
+
+        <div class="card">
+            <div class="col-md-12 text-right">
+                <div class="card-header">
+                    <button type="button" data-toggle="modal" data-target="#newUserModal" class="btn btn-custome waves-effect waves-light">Create New</button>
+                </div>
+            </div>
+            <div class="table-responsive p-3">
+                <table id="backend_users_t"
+                       class="table table-hover table-sm table-striped table-bordered tab-active"
+                       data-plugin="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>User Group</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <!--new user modal-->
+        <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">User Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="frmNewUser">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="firstName" class="control-label">First Name</label>
+                                <input name="firstName" id="firstName" class="form-control" placeholder="First Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="control-label">Last Name</label>
+                                <input name="lastName" id="lastName" class="form-control" placeholder="Last Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label">Phone Number</label>
+                                <input name="phone" id="phone" class="form-control" placeholder="0720***201">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="control-label">Email</label>
+                                <input  type="email" name="email" id="email" class="form-control" placeholder="example@exmaple.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="userGroup" class="control-label">User Group</label>
+                                <select name="usergroupNo" id="userGroup" class="form-control" required>
+                                    <option selected disabled >Select User Group</option>
+
+                                    <option th:each="group: ${userGroups}" th:value="${group.id}" th:text="${group.groupName}" ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of  modal-->
+
+
+        <!--edit modal-->
+        <div id="editModal" class="modal fade in"
+             tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit USer</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                    </div>
+                    <form id="editUserFrm">
+                        <div class="modal-body">
+                            <input type="text" name="id" id="entityId" class="form-control" hidden>
+                            <div class="form-group">
+                                <label for="fname" class=" form-control-label">First Name</label>
+                                <input type="text" name="firstName" id="fname" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class=" form-control-label">Last Name</label>
+                                <input type="text" name="lastName" id="lname" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber" class=" form-control-label">Phone Number</label>
+                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="emaill" class=" form-control-label">Email</label>
+                                <input type="email" name="email" id="emaill" class="form-control" disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userGroupp" class="control-label">User Group</label>
+                                <select name="usergroupNo" id="userGroupp" class="form-control" required>
+                                    <option selected disabled >Select User Group</option>
+
+                                    <option th:each="group: ${userGroups}" th:value="${group.id}" th:text="${group.groupName}" ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success waves-effect">Update
+                            </button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of edit modal-->
+
+
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}"></script>
+
+    <!--Form Validation -->
+    <script th:src="@{/plugins/formvalidation/formValidation.min.js}"></script>
+    <script th:src="@{/plugins/formvalidation/framework/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/app/utils.js}"></script>
+    <script th:src="@{/js/app/app-utils.js}"></script>
+    <script th:src="@{/js/app/users.js}"></script>
+</th:block>
+
+
+</html>

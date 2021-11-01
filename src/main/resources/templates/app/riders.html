@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="layouts/main">
+
+<!-- Page wrapper  -->
+<head>
+    <link rel="stylesheet" data-th-href="@{/plugins/datatables/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/formvalidation/formValidation.css}"/>
+
+</head>
+
+<div layout:fragment="content">
+    <!-- Bread crumb and right sidebar toggle -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Drivers</h4>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0)">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Drivers</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!--<div class="wrapper">-->
+    <div class="container-fluid">
+
+
+        <!--begin modal-->
+        <div class="modal fade" id="assignDriverModal" tabindex="-1" role="dialog" aria-labelledby="assignDriverModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Assign Order</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="frmAssignOrder">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="drivers" class="control-label">Available Drivers:</label>
+                                <select name="driver" id="drivers" class="form-control">
+
+                                </select>
+                            </div>
+                            <input name="id" id="entityID" hidden="hidden">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Assign</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--end of  modal-->
+
+        <div class="card">
+
+            <div class="">
+                <div class="nav-tab-horizontal">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#all" data-toggle="tab" aria-expanded="true">All</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#available" data-toggle="tab">Available</a>
+                        </li>
+                    </ul>
+                    <div class="col-md-12 text-right">
+                        <div class="card-header">
+                            <button sec:authorize="hasRole('ROLE_RIDERS_CREATE')" type="button" data-toggle="modal" data-target="#newRiderModal" class="btn btn-custome waves-effect waves-light">New Driver</button>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="all" aria-expanded="true">
+                            <div class="table-responsive p-3">
+                                <table id="all_table"
+                                       class="table table-hover table-sm table-striped table-bordered tab-active"
+                                       data-plugin="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Driver Name</th>
+                                        <th>Contacts</th>
+                                        <th>State</th>
+                                        <th>Vehicle Reg</th>
+                                        <th>Created On</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="available" role="tabpanel" aria-expanded="false">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive p-3">
+                                <table id="available_table"
+                                       class="table table-hover table-sm table-striped table-bordered table-inactive"
+                                       data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Driver Name</th>
+                                        <th>Contacts</th>
+                                        <th>State</th>
+                                        <th>Vehicle Reg</th>
+                                        <th>Created On</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--edit modal-->
+        <div id="editModal" class="modal fade in"
+             tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit Driver</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                    </div>
+                    <form id="editRiderFrm">
+                        <div class="modal-body">
+                             <input type="text" name="id" id="id" class="form-control" hidden>
+                                <div class="form-group">
+                                    <label for="firstName" class=" form-control-label">First Name</label>
+                                    <input type="text" name="firstName" id="firstName" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class=" form-control-label">Last Name</label>
+                                    <input type="text" name="lastName" id="lastName" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNumber" class=" form-control-label">Phone Number</label>
+                                    <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class=" form-control-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group"><label for="status" class=" form-control-label">Status</label>
+                                    <select id="status" name="status" class="form-control" required>
+                                        <option value="active">Active</option>
+                                        <option value="in-active">In-Active</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group"><label for="motorbikes" class=" form-control-label">Vehicle</label>
+                                    <select id="motorbikes" name="motorBike" class="form-control" required>
+                                        <option value="0">None</option>
+                                    </select>
+
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success waves-effect">Update
+                            </button>
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of edit modal-->
+
+
+        <!--driver orders  modal-->
+        <div id="driverOrdersModal" class="modal fade in"
+             tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" >Driver Orders</h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                    </div>
+                        <div class="modal-body">
+
+
+                            <div class="table-responsive p-3">
+                                <table id="rider_orders" class="table table-hover table-sm table-striped table-bordered table-inactive"
+                                       data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th >Order No</th>
+                                        <th >Order State </th>
+                                        <th >Customer Contact</th>
+                                        <th >Delivery Address</th>
+                                        <th >Ordered On</th>
+                                        <th >Delivered On</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!--end of edit modal-->
+
+        <!--new rider modal-->
+        <div class="modal fade" id="newRiderModal" tabindex="-1" role="dialog" aria-labelledby="newRiderModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" >Driver Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form id="frmNewRider">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="rfirstName" class="control-label">First Name</label>
+                                <input name="firstName" id="rfirstName" class="form-control" placeholder="First Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="rlastName" class="control-label">Last Name</label>
+                                <input name="lastName" id="rlastName" class="form-control" placeholder="Last Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label">Phone Number</label>
+                                <input name="phone" id="phone" class="form-control" placeholder="0720***201">
+                            </div>
+                            <div class="form-group">
+                                <label for="remail" class="control-label">Email</label>
+                                <input  type="email" name="email" id="remail" class="form-control" placeholder="example@exmaple.com">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end of  modal-->
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}"></script>
+
+    <!--Form Validation -->
+    <script th:src="@{/plugins/formvalidation/formValidation.min.js}"></script>
+    <script th:src="@{/plugins/formvalidation/framework/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/app/utils.js}"></script>
+    <script th:src="@{/js/app/riders.js}"></script>
+</th:block>
+
+
+</html>

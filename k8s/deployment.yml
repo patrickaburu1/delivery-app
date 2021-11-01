@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sprintel-delivery-api
+spec:
+  selector:
+    matchLabels:
+      app: sprintel-delivery-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sprintel-delivery-api
+    spec:
+      containers:
+        - name: sprintel-delivery-api
+          image: basiljereh/sprintel-delivery-api:v1
+          ports:
+            - containerPort: 9090
+          env:
+            - name: TZ
+              value: Africa/Nairobi
+            - name: MYSQL_DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mysql.db.host
+            - name: MYSQL_DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mysql.db.name
+            - name: MYSQL_DATABASE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mysql.db.username
+            - name: MYSQL_DATABASE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mysql.db.password
+            - name: MONGO_DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mongo.db.host
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mongo.db.name
+            - name: MONGO_DATABASE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mongo.db.username
+            - name: MONGO_DATABASE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mongo.db.password
+            - name: MONGO_AUTH_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: sprintel-delivery-configs
+                  key: mongo.db.auth.username

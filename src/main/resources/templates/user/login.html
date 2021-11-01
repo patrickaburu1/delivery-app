@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/auth">
+<head>
+    <link rel="stylesheet" data-th-href="@{/css/login.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title">
+                <span class="login100-form-title-1">
+                    <h5>Restricted Access. Login to continue</h5>
+                </span>
+            </div>
+            <br>
+            <form id="frmLogin" th:action="@{/login}" method="post">
+                <div th:if="${msg}" class="alert " th:classappend="'alert-'+${state}">
+                    <th:block th:if="${state == 'danger'}">
+                      <!--  <h10 th:text="#{login.errorTitle}"></h10>-->
+                    </th:block>
+                    <p th:text="${msg}"></p>
+                </div>
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
+                    <label class="settings-form__field__label" for="email">Email</label>
+                    <input class="input100" type="text" name="email" id="email" placeholder="Enter email"
+                           required="required">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                    <label class="settings-form__field__label" for="password">Password</label>
+                    <input class="input100" type="password" name="password" id="password" placeholder="Enter password"
+                           required="required">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="container-login100-form-btn m-t-15">
+                    <button type="submit" class="login100-form-btn btn-block">Login</button>
+                </div>
+
+                <div class="txt1 text-center flex-sb-m w-full p-t-30">
+                    <a data-th-href="@{/password-reset}">
+                        Forgot Password?
+                    </a>
+                </div>
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+</th:block>
+
+</html>

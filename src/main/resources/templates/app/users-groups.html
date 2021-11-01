@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<div layout:fragment="content">
+    <!-- Bread crumb and right sidebar toggle -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor" th:text="#{core.userGroups}"></h4>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{core.home}"></a></li>
+                <li class="breadcrumb-item active" th:text="#{core.userGroups}"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!--<div class="wrapper">-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="lang-pack d-none">
+                <span class="_ajax_record_empty" th:text="#{ajax.notAvailable}"></span>
+                <span class="_ajax_error" th:text="#{ajax.error}"></span>
+                <span class="_ajax_error_title" th:text="#{core.notice}"></span>
+                <span class="_ajax_record_select" th:text="#{ajax.recordSelect}"></span>
+                <span class="_ajax_deactivate_confirm" th:text="#{ajax.deactivateDelete}"></span>
+                <span class="_ajax_activate_confirm" th:text="#{ajax.activateDelete}"></span>
+                <span class="_ajax_delete_confirm" th:text="#{ajax.confirmDelete}"></span>
+
+                <span class="_ajax_error_404" th:text="#{ajax.404.error}"></span>
+                <span class="_ajax_error_403" th:text="#{ajax.403.error}"></span>
+                <span class="_ajax_error_500" th:text="#{ajax.500.error}"></span>
+                <span class="_ajax_question_delete" th:text="#{ajax.question.delete}"></span>
+                <span class="_ajax_question_activate" th:text="#{ajax.question.activate}"></span>
+                <span class="_ajax_question_deny" th:text="#{ajax.question.declinenew}"></span>
+                <span class="_ajax_question_approve" th:text="#{ajax.question.approvenew}"></span>
+            </div>
+            <div class="nav-tab-horizontal">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" href="#home" data-toggle="tab" aria-expanded="true">Active</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#new" data-toggle="tab" aria-expanded="false">New</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#edited" data-toggle="tab">Edited</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#deactivated" data-toggle="tab">Deactivated</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#inactive" data-toggle="tab">Inactive</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#deleted" data-toggle="tab">Deleted</a></li>
+                </ul>
+                <div class="card-body no-gutters">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home" aria-expanded="true">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <div class="card-header">
+                                        <button type="button" data-toggle="modal"
+                                                data-target=".edit-modal"
+                                                class="btn btn-custome waves-effect waves-light"
+                                                th:text="#{core.create}">
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="table-responsive p-3">
+                                <table class="table table-hover table-sm table-striped table-bordered tab-active"
+                                       data-plugin="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="new" role="tabpanel" aria-expanded="false">
+                            <div class="table-responsive p-3">
+                                <table
+                                        class="table table-hover table-sm table-striped table-bordered table-new"
+                                        data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="edited" role="tabpanel" aria-expanded="false">
+                            <div class="table-responsive p-3">
+                                <table
+                                        class="table table-hover table-sm table-striped table-bordered table-edited"
+                                        data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="deactivated" role="tabpanel" aria-expanded="false">
+                            <div class="table-responsive p-3">
+                                <table
+                                        class="table table-hover table-sm table-striped table-bordered table-deactivated"
+                                        data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="inactive" role="tabpanel" aria-expanded="false">
+                            <div class="table-responsive p-3">
+                                <table
+                                        class="table table-hover table-sm table-striped table-bordered table-inactive"
+                                        data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="deleted" role="tabpanel" aria-expanded="false">
+                            <div class="table-responsive p-3">
+                                <table
+                                        class="table table-hover table-sm table-striped table-bordered table-deleted"
+                                        data-plugin="dataTable" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{group.name}"></th>
+                                        <th th:text="#{core.description}"></th>
+                                        <th th:text="#{core.modifier}"></th>
+                                        <th th:text="#{core.modified}"></th>
+                                        <th th:text="#{core.actions}"></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal-->
+        <div class="modal edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" >&nbsp; Group Info
+                            <small></small>
+                        </h3>
+                    </div>
+                    <form method="post" action="#">
+                        <div class="modal-body">
+                            <div class="row row-lg">
+                                <div class="col-lg-12 form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label">Group Name</label>
+                                        <input type="text" class="form-control" name="groupName" id="groupName"
+                                               placeholder="E.g Admin"
+                                               autocomplete="off" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" >Description</label>
+                                        <input class="form-control" name="description" type="text"
+                                               />
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="control-label" >Group Roles</label>
+                                    <div class="row group-roles">
+                                        <th:block th:each="item : ${roleList}">
+                                            <div class="col-sm-6" th:attr="data-role-code=${item.roleCode}"
+                                                 th:attrappend="data-mf-type=${item.appFunctions}">
+                                                <div class="check checkbox check-parent"
+                                                     data-checkbox="icheckbox_square-green">
+                                                    <!--Ensure that there are actions available  -->
+                                                    <div
+                                                            th:if="${item.permissions.size() > 1 }"
+                                                            class="pull-right"><i class="fa fa-angle-down"></i></div>
+
+                                                    <input type="checkbox" class="parent-item" data-index=""
+                                                           data-checkbox="icheckbox_square-green"/>
+                                                    <label th:text="${item.roleName}"></label>
+                                                </div>
+                                                <!--Ensure that there are actions avaliable -->
+                                                <div th:if="${item.permissions.size() > 0 }"
+                                                     class="role-actions d-none">
+                                                    <!--Loop through the actions -->
+                                                    <div th:each="action : ${item.permissions}"
+                                                         class="check checkbox" data-checkbox="icheckbox_square-green"
+                                                         th:attr="data-code=${action.actionCode}">
+                                                        <input type="checkbox" th:attr="data-index=${action.id}"
+                                                               data-checkbox="icheckbox_square-green"/>
+                                                        <label th:text="${action.actionName}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="action" value="new"/>
+                                <input type="hidden" name="id" class="data-index" value=""/>
+                                <input type="hidden" name="groupRoles" value=""/>
+                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+                                        th:text="Close"></button>
+                                <button type="submit" class="btn btn-sm btn-success"
+                                        th:text="submit"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}"></script>
+
+    <!--Form Validation -->
+    <script th:src="@{/plugins/formvalidation/formValidation.min.js}"></script>
+    <script th:src="@{/plugins/formvalidation/framework/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/intl-tel/intlTelInput.js}"></script>
+
+    <script th:src="@{/js/ganji-utils/00-moment.grunt.js}"></script>
+    <script th:src="@{/js/ganji-utils/app-utils.js}"></script>
+
+    <script th:src="@{/js/app/user-groups.js}"></script>
+</th:block>
+
+<!-- Page wrapper  -->
+<head>
+    <link rel="stylesheet" data-th-href="@{/plugins/datatables/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/formvalidation/formValidation.css}"/>
+    <link rel="stylesheet" data-th-href="@{/plugins/intl-tel/intlTelInput.css}"/>
+</head>
+
+</html>

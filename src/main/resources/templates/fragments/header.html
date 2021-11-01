@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<!-- Topbar header - style you can find in pages.scss -->
+
+<header th:fragment="header" class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+
+        <!-- Logo -->
+        <div class="navbar-header">
+            <a class="navbar-brand" data-th-href="@{/}">
+                <!-- Logo icon -->
+                <b><img th:src="@{/images/logo-white1.png}" alt="Sprintel" class="light-logo" width="80%" /></b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <!--<span><img th:src="@{/images/logo-light-text.png}" class="light-logo" alt="Swiggo " /></span>-->
+            </a>
+        </div>
+        <!-- End Logo -->
+
+        <div class="navbar-collapse">
+
+            <!-- toggle and nav items -->
+
+            <ul class="navbar-nav mr-auto mt-md-0">
+                <!-- This is  -->
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+
+                <!-- Comment -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
+                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                    </a>
+                    <div class="dropdown-menu mailbox animated slideInUp">
+                        <ul>
+                            <li>
+                                <div class="drop-title">Notifications</div>
+                            </li>
+                            <li>
+                                <div class="message-center">
+                                    <!-- Message -->
+                                </div>
+                            </li>
+                            <li>
+                                <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- End Comment -->
+
+
+                <!-- Messages -->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
+                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                    </a>
+                    <div class="dropdown-menu mailbox animated slideInUp" aria-labelledby="2">
+                        <ul>
+                            <li>
+                                <div class="drop-title">You have 4 new messages</div>
+                            </li>
+                            <li>
+                                <div class="message-center">
+                                    <!-- Message -->
+                                </div>
+                            </li>
+                            <li>
+                                <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- End Messages -->
+
+
+                <!-- Messages -->
+
+
+
+                <!-- End Messages -->
+
+            </ul>
+
+            <!-- User profile and search -->
+
+            <ul class="navbar-nav my-lg-0">
+
+                <!-- Search -->
+
+                <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                    <form class="app-search">
+                        <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                </li>
+
+                <!-- Profile -->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img th:src="@{/images/placeholder.png} " alt="user" class="profile-pic" /></a>
+                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                        <ul class="dropdown-user">
+                            <li>
+                                <div class="dw-user-box">
+                                    <div class="u-text">
+                                      <!--  <h4 th:text="${@userService.findLoggedInUser().getData().getFirstName()}"></h4>
+                                        <p class="text-muted" th:text="${@userService.findLoggedInUser().getData().getEmail()}"></p>-->
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" id="logoutForm">
+                                    <input type="hidden" name="j_spring_security_logout" value="true"/>
+                                </form>
+                                <a href="javascript:void(0);" id="login_form_submit" role="menuitem"><i class="fa fa-power-off"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- End Topbar header -->
+</html>

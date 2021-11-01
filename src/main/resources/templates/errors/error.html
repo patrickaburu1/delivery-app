@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layouts/auth">
+<head>
+    <link rel="stylesheet" data-th-href="@{/css/login.css}">
+</head>
+
+<th:block layout:fragment="content">
+
+<div class="row">
+
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <section id="wrapper" class=".container-login100">
+            <div class="error-box">
+                <div class="error-body text-center">
+                    <h1 th:text="${httpCode}"></h1>
+                    <p th:text="${pageMessage}"></p>
+                    <a data-th-href="@{/}" class="btn mt-5 btn-success btn-rounded waves-effect waves-light m-b-40">Back
+                        to Dashboard</a></div>
+            </div>
+        </section>
+
+    </div>
+    <!-- Row -->
+
+</div>
+
+
+</th:block>
+
+</html>
