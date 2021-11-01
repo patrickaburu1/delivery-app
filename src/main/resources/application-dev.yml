@@ -1,0 +1,69 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: sprintel-delivery-demo
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: default
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://prod.cgxzi2cgxq0c.us-east-1.rds.amazonaws.com:3306/delivery_demo?useSSL=false
+    username: ad
+    password: ad
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: driver_location
+      authentication-database: admin
+  sendgrid:
+    api-key: SGlQg5Thm5S8K49S9_tqrkLg4QwEDA__w:server
+
+jwt:
+  expires_in: 12000
+  token_refresh_time_before_expiry: 600
+  header: Authorization
+  secret: kdTJI-CB,R${A^cQ4>"I#Xu6&)J>{]~t#kAZ%eMWg|?>V(#s@lGODNmj`*UkG[r
+
+app:
+  name: delivery
+  endpoint: http://localhost:9090
+
+sms_endpoint: https://xrwlre.api.infobip.com/sms/2/text/advanced
+sms_api_key: 01281
+sms_api_name: app
+sms_api_version: 1
+
+#Security
+api:
+  access_key: delivery
+
+
+firebase:
+  key: key=AAAAYxhOuBg:APA91bGKzVAl0Q4CGQejoo6w65dhQoJx7UDQSjuKYMSpf5GK6KPIyPE3BMJi3VT5RB-nxiFn-KxOu74_1qfnu9wL4u-2f_WTko63kanNTLf6MkN_ujDYAICzQp46uMRQIQ4uAk8tdGuF
+
+
+
+#order configs
+cscart:
+  no:
+    of:
+      orders: 10
+
+#location pin origin store
+location:
+  pin:
+    lat: -1.293841
+    lng: 36.797047
+  circle:
+    radius: 1000

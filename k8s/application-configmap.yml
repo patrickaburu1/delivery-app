@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sprintel-delivery-configs
+data:
+  mysql.db.host: mysql
+  mysql.db.name: sprintel
+  mysql.db.username: farasi
+  mysql.db.password: Farasi#2022!
+
+  mongo.db.host: mongodb-service
+  mongo.db.name: admin
+  mongo.db.username: test
+  mongo.db.password: test@123
+  mongo.db.auth.username: admin

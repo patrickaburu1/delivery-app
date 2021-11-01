@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sprintel-delivery-demo
+  profiles:
+    active:
+      - prod
